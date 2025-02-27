@@ -21,11 +21,26 @@ gs://genetic-scores-tofu-state
 
 Enabling object versioning, soft delete, and encryption is a good idea.
 
+## Pick an environment
+
+```
+$ cd environments/test
+```
+
 ## Plan a deployment
 
 ```
 $ tofu plan
 ```
+
+> [!TIP]
+> `plan` will prompt for variables. You can put these variables in a file to save time, e.g.:
+>
+> ```
+> $ tofu plan -var-file="testing.tfvars"
+> ```
+
+If everything looks sensible, create the resources by applying the deployment.
 
 ## Execute a deployment
 
