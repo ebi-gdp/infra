@@ -1,16 +1,7 @@
-# bucket names must be globally unique
-resource "random_id" "random_suffix" {
-  keepers = {
-    # Generate a new id each time we switch to a new project
-    project_id = var.project_id
-  }
-  byte_length = 4
-}
-
 resource "google_storage_bucket" "public_buckets" {
   for_each = var.static_buckets
 
-  name                        = "${each.value}-${random_id.random_suffix.hex}"
+  name                        = "${each.value}-${var.environment}"
   location                    = var.region
   uniform_bucket_level_access = true
   storage_class               = "STANDARD"

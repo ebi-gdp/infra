@@ -1,6 +1,7 @@
 module "static-sites" {
   source     = "../../modules/static_sites"
   project_id = var.project_id
+  environment = var.environment
 }
 
 module "uptime_checks" {

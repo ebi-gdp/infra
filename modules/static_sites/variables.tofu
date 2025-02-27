@@ -18,3 +18,7 @@ variable "static_buckets" {
   }
 }
 
+variable "environment" {
+  description = "Deployment environment"
+  type = string
+}
