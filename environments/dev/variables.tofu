@@ -13,3 +13,9 @@ variable "alert_contacts" {
   description = "Alert contacts (format: email = description)"
   type = map(string)
 }
+
+variable "environment" {
+  description = "Deployment environment"
+  type = string
+  default = "test"
+}

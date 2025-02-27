@@ -11,6 +11,16 @@ $ tofu init
 $ gcloud auth application-default login
 ```
 
+## Before you get started
+
+Make sure a backend bucket exists in the production project, e.g.:
+
+```
+gs://genetic-scores-tofu-state
+```
+
+Enabling object versioning, soft delete, and encryption is a good idea.
+
 ## Plan a deployment
 
 ```
