@@ -21,11 +21,11 @@ resource "google_compute_url_map" "static_site_url_map" {
   dynamic "path_matcher" {
     for_each = var.static_buckets
     content {
-      name = path_matcher.value
+      name            = path_matcher.value
       default_service = google_compute_backend_bucket.public_backends[path_matcher.key].id
 
       path_rule {
-        paths = ["/*"]
+        paths   = ["/*"]
         service = google_compute_backend_bucket.public_backends[path_matcher.key].id
       }
     }

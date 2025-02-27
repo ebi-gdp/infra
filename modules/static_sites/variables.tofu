@@ -14,11 +14,11 @@ variable "static_buckets" {
   default = {
     "docs.geneticscores.org"    = "geneticscores-org-docs"
     "methods.geneticscores.org" = "geneticscores-org-methods"
-    "geneticscores.org" = "geneticscores-org"
+    "geneticscores.org"         = "geneticscores-org"
   }
 }
 
 variable "environment" {
   description = "Deployment environment"
-  type = string
+  type        = string
 }

@@ -5,18 +5,18 @@ module "uptime-check-static-sites" {
   for_each = var.uptime_targets
 
   uptime_check_display_name = each.value
-  project_id = var.project_id
+  project_id                = var.project_id
 
-  timeout = "60s"
-  period = "600s"
-  protocol = "HTTPS"
+  timeout      = "60s"
+  period       = "600s"
+  protocol     = "HTTPS"
   validate_ssl = true
 
   monitored_resource = {
     monitored_resource_type = "uptime_url"
     labels = {
       project_id = var.project_id
-      host = each.key
+      host       = each.key
     }
   }
 

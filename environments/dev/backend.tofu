@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "genetic-scores-tofu-state"
-    prefix  = "dev"
+    bucket = "genetic-scores-tofu-state"
+    prefix = "dev"
   }
 }

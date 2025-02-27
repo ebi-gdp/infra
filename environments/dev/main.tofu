@@ -4,7 +4,7 @@ module "static-sites" {
 }
 
 module "uptime_checks" {
-  source     = "../../modules/uptime_checks"
-  project_id = var.project_id
+  source         = "../../modules/uptime_checks"
+  project_id     = var.project_id
   alert_contacts = var.alert_contacts
 }
