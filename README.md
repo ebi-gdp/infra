@@ -21,6 +21,9 @@ gs://genetic-scores-tofu-state
 
 Enabling object versioning, soft delete, and encryption is a good idea.
 
+> [!NOTE]
+> This bucket will contain the state of your infrastructure in lock files, which helps people to collaborate and reduces the risk of losing state 
+
 ## Pick an environment
 
 ```
