@@ -17,5 +17,5 @@ variable "alert_contacts" {
 variable "environment" {
   description = "Deployment environment"
   type = string
-  default = "test"
+  default = "dev"
 }
