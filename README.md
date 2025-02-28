@@ -2,6 +2,9 @@
 
 [OpenTofu](https://opentofu.org/) is an open source infrastructure as code tool (forked from Terraform).
 
+> [!TIP]
+> The main branch of the live repository should be a 1:1 representation of what’s actually deployed in production.
+ 
 ## Setup
 
 ```
