@@ -9,8 +9,8 @@ variable "region" {
   type        = string
 
   validation {
-    condition     = contains(["europe-west2"], var.environment)
-    error_message = "Environment must be ddeployed to europe-west2 region"
+    condition     = contains(["europe-west2"], var.region)
+    error_message = "Infrastructure must be ddeployed to europe-west2 region"
   }
 }
 

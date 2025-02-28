@@ -4,3 +4,4 @@ repos:
   hooks:
     - id: tofu_fmt
     - id: tofu_tflint
+    - id: tofu_docs
