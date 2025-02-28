@@ -21,4 +21,9 @@ variable "static_buckets" {
 variable "environment" {
   description = "Deployment environment"
   type        = string
+
+    validation {
+      condition     = contains(["dev", "test", "prod"], var.environment)
+      error_message = "Allowed values for input_parameter are \"dev\", \"test\", or \"prod\"."
+    }
 }
