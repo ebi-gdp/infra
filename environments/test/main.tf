@@ -9,3 +9,32 @@ module "uptime_checks" {
   project_id     = var.project_id
   alert_contacts = var.alert_contacts
 }
+
+module "autopilot" {
+  source      = "../../modules/k8s/"
+  project_id  = var.project_id
+  environment = var.environment
+  secondary_ranges = {
+    test-main-subnet = [{
+      range_name    = "test-gke-pods-subnet",
+      ip_cidr_range = "10.10.2.0/24"
+      },
+      {
+        range_name    = "test-gke-svcs-subnet",
+        ip_cidr_range = "10.10.3.0/24"
+    }]
+  }
+  subnets = [{
+    subnet_name           = "test-main-subnet",
+    subnet_ip             = "10.10.0.0/23",
+    subnet_region         = "europe-west2",
+    subnet_private_access = "true",
+    description           = "Main subnet"
+  }]
+  databases = {
+    main = {
+      deletion_protection_enabled = false
+      private_address             = "10.10.0.25"
+    }
+  }
+}

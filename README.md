@@ -4,7 +4,7 @@
 
 > [!TIP]
 > The main branch of the live repository should be a 1:1 representation of what’s actually deployed in production.
- 
+
 ## Setup
 
 ```
@@ -25,7 +25,7 @@ gs://genetic-scores-tofu-state
 Enabling object versioning, soft delete, and encryption is a good idea.
 
 > [!NOTE]
-> This bucket will contain the state of your infrastructure in lock files, which helps people to collaborate and reduces the risk of losing state 
+> This bucket will contain the state of your infrastructure in lock files, which helps people to collaborate and reduces the risk of losing state
 
 ## Pick an environment
 
