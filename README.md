@@ -1,6 +1,8 @@
-# GeneticScores.org OpenTofu templates
+# GeneticScores.org infrastructure
 
 [OpenTofu](https://opentofu.org/) is an open source infrastructure as code tool (forked from Terraform).
+
+You can use this repository to create Google Cloud Platform infrastructure to run an instance of `GeneticScores.org`. 
 
 > [!TIP]
 > The main branch of the live repository should be a 1:1 representation of what’s actually deployed in production.
