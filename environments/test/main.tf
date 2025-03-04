@@ -43,3 +43,10 @@ module "autopilot" {
     }
   }
 }
+
+module "jobs" {
+  source      = "../../modules/jobs/"
+  project_id  = var.project_id
+  environment = var.environment
+
+}
