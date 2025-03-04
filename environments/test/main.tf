@@ -32,9 +32,14 @@ module "autopilot" {
     description           = "Main subnet"
   }]
   databases = {
-    main = {
+    "intervene-${var.environment}" = {
       deletion_protection_enabled = false
-      private_address             = "10.10.0.25"
+      private_address             = "10.10.0.25",
+      additional_users = [{
+        name            = "intervene-${var.environment}",
+        password        = null,
+        random_password = true
+      }]
     }
   }
 }

@@ -10,4 +10,13 @@ locals {
       instance_name               = key
     }
   }
+  db_users = flatten([
+    for db in module.databases : [
+      for user in db.additional_users : {
+        name                  = "cloudsql-${db.instance_name}-${user.name}",
+        secret_data           = user.password,
+        automatic_replication = false
+      }
+    ]
+  ])
 }

@@ -9,15 +9,15 @@ module "databases" {
   version  = "25.2"
 
   name                 = each.key
-  random_instance_name = true
+  random_instance_name = false
   project_id           = var.project_id
   database_version     = each.value.database_version
   region               = var.region
 
   // Master configurations
-  tier                            = each.value.instance_type
-  zone                            = each.value.primary_az
-  secondary_zone                  = each.value.secondary_az
+  tier = each.value.instance_type
+  zone = each.value.primary_az
+  // secondary_zone                  = each.value.secondary_az
   availability_type               = each.value.availability_type
   maintenance_window_day          = each.value.maintenance_window_day
   maintenance_window_hour         = each.value.maintenance_window_hour
@@ -45,7 +45,7 @@ module "databases" {
 
   additional_databases = each.value.additional_databases
 
-  enable_default_user = true
+  enable_default_user = false
   additional_users    = each.value.additional_users
 }
 
