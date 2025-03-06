@@ -1,5 +1,9 @@
 # see tf example here https://cloud.google.com/load-balancing/docs/https/setup-global-ext-https-buckets
 
+terraform {
+  required_version = ">= 1.0.0, < 2.0.0"
+}
+
 resource "google_compute_global_address" "static_lb_ip" {
   name = "static-lb-ip"
 }

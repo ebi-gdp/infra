@@ -1,3 +1,7 @@
+terraform {
+  required_version = ">= 1.0.0, < 2.0.0"
+}
+
 /*
 * GKE Cluster.
 */
@@ -36,3 +40,4 @@ module "my-app-workload-identity" {
   project_id          = var.project_id
   roles               = each.value.roles
 }
+

@@ -4,11 +4,6 @@ variable "project_id" {
   nullable    = false
 }
 
-variable "region" {
-  type    = string
-  default = "europe-west2"
-}
-
 variable "uptime_targets" {
   description = "Public uptime check targets (static sites)"
   type        = map(string)

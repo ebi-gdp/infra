@@ -13,3 +13,11 @@ variable "environment" {
   description = "Deployment environment"
   type        = string
 }
+
+variable "autopilot_endpoint" {
+  type = string
+}
+
+variable "autopilot_ca_certificate" {
+  type = string
+}

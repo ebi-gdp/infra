@@ -1,6 +1,5 @@
 module "static-sites" {
   source      = "../../modules/static_sites"
-  project_id  = var.project_id
   environment = var.environment
 }
 
@@ -9,6 +8,7 @@ module "uptime_checks" {
   project_id     = var.project_id
   alert_contacts = var.alert_contacts
 }
+
 
 module "autopilot" {
   source      = "../../modules/k8s/"
@@ -45,8 +45,9 @@ module "autopilot" {
 }
 
 module "jobs" {
-  source      = "../../modules/jobs/"
-  project_id  = var.project_id
-  environment = var.environment
-
+  source                   = "../../modules/jobs/"
+  project_id               = var.project_id
+  environment              = var.environment
+  autopilot_ca_certificate = module.autopilot.ca_certificate
+  autopilot_endpoint       = module.autopilot.endpoint
 }
