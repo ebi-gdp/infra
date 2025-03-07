@@ -14,17 +14,6 @@ variable "environment" {
   type        = string
 }
 
-variable "oidc_service_accounts" {
-  description = "service account in the GKE cluster to use GCP services"
-  default     = {}
-  type = map(object({
-    roles               = list(string)
-    namespace           = string
-    use_existing_k8s_sa = optional(bool, true)
-    annotate_k8s_sa     = optional(bool, false)
-  }))
-}
-
 variable "horizontal_pod_autoscaling" {
   default = true
   type    = bool

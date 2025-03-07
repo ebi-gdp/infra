@@ -44,10 +44,11 @@ module "autopilot" {
   }
 }
 
-module "jobs" {
-  source                   = "../../modules/jobs/"
+module "k8s_services" {
+  source                   = "../../modules/k8s_services/"
   project_id               = var.project_id
   environment              = var.environment
   autopilot_ca_certificate = module.autopilot.ca_certificate
   autopilot_endpoint       = module.autopilot.endpoint
+  oidc_service_accounts    = var.oidc_service_accounts
 }

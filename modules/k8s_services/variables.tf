@@ -21,3 +21,12 @@ variable "autopilot_endpoint" {
 variable "autopilot_ca_certificate" {
   type = string
 }
+
+variable "oidc_service_accounts" {
+  description = "service account in the GKE cluster to use GCP services"
+  type = map(object({
+    roles               = list(string)
+    namespace           = string
+    use_existing_k8s_sa = optional(bool, false)
+  }))
+}
