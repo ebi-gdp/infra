@@ -1,6 +1,7 @@
 module "static-sites" {
-  source      = "../../modules/static_sites"
-  environment = var.environment
+  source       = "../../modules/static_sites"
+  environment  = var.environment
+  static_ip_id = data.google_compute_global_address.static_site_lb_ip.id
 }
 
 module "uptime_checks" {

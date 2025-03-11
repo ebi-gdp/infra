@@ -4,10 +4,6 @@ terraform {
   required_version = ">= 1.0.0, < 2.0.0"
 }
 
-resource "google_compute_global_address" "static_lb_ip" {
-  name = "static-lb-ip"
-}
-
 resource "google_compute_url_map" "static_site_url_map" {
   name        = "static-site-url-map"
   description = "URL map for the static sites with bucket backends"
@@ -47,5 +43,5 @@ resource "google_compute_global_forwarding_rule" "default" {
   load_balancing_scheme = "EXTERNAL_MANAGED"
   port_range            = "80"
   target                = google_compute_target_http_proxy.static-sites.id
-  ip_address            = google_compute_global_address.static_lb_ip.id
+  ip_address            = var.static_ip_id
 }

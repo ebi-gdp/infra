@@ -17,3 +17,8 @@ variable "environment" {
   description = "Deployment environment"
   type        = string
 }
+
+variable "static_ip_id" {
+  description = "Static IP address identifier for the resource with format projects/{{project}}/global/addresses/{{name}}"
+  type        = string
+}
