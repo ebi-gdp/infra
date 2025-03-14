@@ -95,3 +95,21 @@ If everything looks sensible, create the resources by applying the deployment.
 ```
 $ tofu apply
 ```
+
+## Next steps
+
+The [dev](environments/dev) and [test](environments/test) deployments include a CloudSQL database and Kubernetes cluster with associated infrastructure. 
+
+The [production](environments/prod) deployment also include monitoring, alerting, and static site set up. 
+
+The created cluster is automatically configured to support deploying `GeneticScores.org` services (see [`k8s_services`](modules/k8s_services) module).
+
+You'll still need to:
+
+- [ ] Initialise the database tables
+- [ ] Register the cluster with Gitlab to support CI/CD operations
+- [ ] Deploy other services including the job submitter and cron jobs
+- [ ] Anything else?
+
+> [!TIP]
+> Add a link to documentation here
