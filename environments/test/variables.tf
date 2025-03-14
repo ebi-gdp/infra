@@ -63,3 +63,30 @@ variable "oidc_service_accounts" {
     use_existing_k8s_sa = optional(bool, true)
   }))
 }
+
+variable "basic_auth_secret" {
+  description = "Configuration for microservices using basic access authentication"
+  type = object({
+    BASIC_AUTH_USERNAME = string
+    BASIC_AUTH_PASSWORD = string
+  })
+  sensitive = true
+}
+
+variable "email_secret" {
+  description = "Configuration for email notifications"
+  type = object({
+    INTERVENE_EMAIL_ID       = string
+    INTERVENE_EMAIL_PASSWORD = string
+  })
+  sensitive = true
+}
+
+variable "globus_secret" {
+  description = "Configuration for globus authentication"
+  type = object({
+    GLOBUS_CLIENT_ID     = string
+    GLOBUS_CLIENT_SECRET = string
+  })
+  sensitive = true
+}

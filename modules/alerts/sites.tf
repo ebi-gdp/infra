@@ -2,7 +2,8 @@ module "uptime-check-static-sites" {
   source  = "terraform-google-modules/cloud-operations/google//modules/simple-uptime-check"
   version = "0.6.0"
 
-  for_each = var.uptime_targets
+  // don't create in dev / test environments
+  for_each = var.environment == "prod" ? var.uptime_targets : {}
 
   uptime_check_display_name = each.value
   project_id                = var.project_id

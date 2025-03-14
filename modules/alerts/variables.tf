@@ -4,6 +4,16 @@ variable "project_id" {
   nullable    = false
 }
 
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+
+  validation {
+    condition     = contains(["dev", "test", "prod"], var.environment)
+    error_message = "Allowed values for input_parameter are \"dev\", \"test\", or \"prod\"."
+  }
+}
+
 variable "uptime_targets" {
   description = "Public uptime check targets (static sites)"
   type        = map(string)

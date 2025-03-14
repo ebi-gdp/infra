@@ -4,10 +4,11 @@ module "static-sites" {
   static_ip_id = data.google_compute_global_address.static_site_lb_ip.id
 }
 
-module "uptime_checks" {
-  source         = "../../modules/uptime_checks"
+module "alerts" {
+  source         = "../../modules/alerts"
   project_id     = var.project_id
   alert_contacts = var.alert_contacts
+  environment    = "test"
 }
 
 
@@ -56,4 +57,7 @@ module "k8s_services" {
     DB_USERNAME = "intervene-${var.environment}"
     DB_PASSWORD = module.autopilot.db_password
   }
+  basic_auth_secret = var.basic_auth_secret
+  email_secret      = var.email_secret
+  globus_secret     = var.globus_secret
 }

@@ -4,7 +4,7 @@ module "uptime-check-calculation" {
 
   for_each = var.calculation_uptime_targets
 
-  uptime_check_display_name = each.value
+  uptime_check_display_name = "${var.environment} environment ${each.value}"
   project_id                = var.project_id
 
   timeout      = "60s"
@@ -18,7 +18,7 @@ module "uptime-check-calculation" {
     monitored_resource_type = "uptime_url"
     labels = {
       project_id = var.project_id
-      host       = "calculate.geneticscores.org"
+      host       = local.host
     }
   }
 
