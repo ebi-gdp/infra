@@ -1,8 +1,6 @@
 # GeneticScores.org infrastructure
 
-[OpenTofu](https://opentofu.org/) is an open source infrastructure as code tool (forked from Terraform).
-
-You can use this repository to create Google Cloud Platform infrastructure to run an instance of `GeneticScores.org`.
+You can use this repository to create Google Cloud Platform infrastructure to run an instance of `GeneticScores.org` with [OpenTofu](https://opentofu.org/) (forked from Terraform).
 
 > [!TIP]
 > The main branch of the live repository should be a 1:1 representation of what’s actually deployed in production.
@@ -100,7 +98,7 @@ $ tofu apply
 
 The [dev](environments/dev) and [test](environments/test) deployments include a CloudSQL database and Kubernetes cluster with associated infrastructure. 
 
-The [production](environments/prod) deployment also include monitoring, alerting, and static site set up. 
+The [production](environments/prod) deployment also includes monitoring, alerting, and static site set up. 
 
 The created cluster is automatically configured to support deploying `GeneticScores.org` services (see [`k8s_services`](modules/k8s_services) module).
 
