@@ -4,13 +4,14 @@ module "static-sites" {
   static_ip_id = data.google_compute_global_address.static_site_lb_ip.id
 }
 
+/*
 module "alerts" {
   source         = "../../modules/alerts"
   project_id     = var.project_id
   alert_contacts = var.alert_contacts
   environment    = "test"
 }
-
+*/
 
 module "autopilot" {
   source      = "../../modules/k8s/"
@@ -60,4 +61,5 @@ module "k8s_services" {
   basic_auth_secret = var.basic_auth_secret
   email_secret      = var.email_secret
   globus_secret     = var.globus_secret
+  static_ip_name    = data.google_compute_global_address.calculation_service_lb_ip.id
 }

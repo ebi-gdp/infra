@@ -22,6 +22,11 @@ variable "autopilot_ca_certificate" {
   type = string
 }
 
+variable "static_ip_name" {
+  type        = string
+  description = "Name of static ip used for kubernetes ingress"
+}
+
 variable "db_secret" {
   description = "Username/password for CloudSQL database"
   type = object({
