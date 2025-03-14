@@ -1,7 +1,9 @@
 // create secrets in secret manager which are kubernetes manifests for secret objects
 
-resource "google_secret_manager_secret" "db-secret" {
-  secret_id = "database-secret"
+resource "google_secret_manager_secret" "secrets" {
+  for_each = local.secrets
+
+  secret_id = each.key
 
   replication {
     user_managed {
@@ -12,7 +14,9 @@ resource "google_secret_manager_secret" "db-secret" {
   }
 }
 
-resource "google_secret_manager_secret_version" "db-secret" {
-  secret      = google_secret_manager_secret.db-secret.id
-  secret_data = local.db_manifest
+resource "google_secret_manager_secret_version" "secrets" {
+  for_each = local.secrets
+
+  secret      = google_secret_manager_secret.secrets[each.key].id
+  secret_data = each.value
 }

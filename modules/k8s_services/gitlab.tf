@@ -25,13 +25,11 @@ resource "google_iam_workload_identity_pool_provider" "gitlab-provider" {
 
 // important for GitLab pipelines to read from GCP secret manager
 resource "google_secret_manager_secret_iam_binding" "gitlab_secret_access" {
-  secret_id = google_secret_manager_secret.db-secret.id
+  for_each  = google_secret_manager_secret.secrets
+  secret_id = each.value.id
   role      = "roles/secretmanager.secretAccessor"
 
   members = [
-    for key, project_id in {
-      backend_for_frontend_gateway = "4766"
-      platform                     = "4654"
-    } : "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.gitlab.name}/attribute.gitlab_project_id/${project_id}"
+    for key, project_id in var.gitlab_project_ids : "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.gitlab.name}/attribute.gitlab_project_id/${project_id}"
   ]
 }

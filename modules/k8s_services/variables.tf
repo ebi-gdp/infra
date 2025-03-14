@@ -31,6 +31,35 @@ variable "db_secret" {
   sensitive = true
 }
 
+variable "basic_auth_secret" {
+  description = "Configuration for microservices using basic access authentication"
+  type = object({
+    BASIC_AUTH_USERNAME = string
+    BASIC_AUTH_PASSWORD = string
+  })
+  sensitive = true
+}
+
+
+variable "email_secret" {
+  description = "Configuration for email notifications"
+  type = object({
+    INTERVENE_EMAIL_ID       = string
+    INTERVENE_EMAIL_PASSWORD = string
+  })
+  sensitive = true
+}
+
+variable "globus_secret" {
+  description = "Configuration for globus authentication"
+  type = object({
+    GLOBUS_CLIENT_ID     = string
+    GLOBUS_CLIENT_SECRET = string
+  })
+  sensitive = true
+}
+
+
 variable "oidc_service_accounts" {
   description = "service account in the GKE cluster to use GCP services"
   type = map(object({
@@ -38,4 +67,18 @@ variable "oidc_service_accounts" {
     namespace           = string
     use_existing_k8s_sa = optional(bool, false)
   }))
+}
+
+variable "gitlab_project_ids" {
+  description = "Project IDs with Gitlab Ci/CD pipelines that need to read from the GCP secret manager"
+  type = object(
+    {
+      backend_for_frontend_gateway = string
+      platform                     = string
+    }
+  )
+  default = {
+    backend_for_frontend_gateway = "4766"
+    platform                     = "4654"
+  }
 }
