@@ -1,3 +1,5 @@
+// gitlab CI/CD integration
+
 resource "google_iam_workload_identity_pool" "gitlab" {
   workload_identity_pool_id = "gitlab-pool"
   display_name              = "EBI GitLab"
@@ -23,11 +25,13 @@ resource "google_iam_workload_identity_pool_provider" "gitlab-provider" {
 
 // important for GitLab pipelines to read from GCP secret manager
 resource "google_secret_manager_secret_iam_binding" "gitlab_secret_access" {
-  for_each  = toset(var.gitlab_project_ids)
   secret_id = google_secret_manager_secret.db-secret.id
   role      = "roles/secretmanager.secretAccessor"
 
   members = [
-    "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.gitlab.name}/attribute.gitlab_project_id/${each.value}"
+    for key, project_id in {
+      backend_for_frontend_gateway = "4766"
+      platform                     = "4654"
+    } : "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.gitlab.name}/attribute.gitlab_project_id/${project_id}"
   ]
 }

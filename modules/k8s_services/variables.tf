@@ -39,9 +39,3 @@ variable "oidc_service_accounts" {
     use_existing_k8s_sa = optional(bool, false)
   }))
 }
-
-variable "gitlab_project_ids" {
-  description = "GitLab project IDs which have CI/CD pipelines that need to read from GCP secret manager"
-  default     = ["4766", "4654"]
-  type        = list(string)
-}

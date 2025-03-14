@@ -52,4 +52,8 @@ module "k8s_services" {
   autopilot_ca_certificate = module.autopilot.ca_certificate
   autopilot_endpoint       = module.autopilot.endpoint
   oidc_service_accounts    = var.oidc_service_accounts
+  db_secret = {
+    DB_USERNAME = "intervene-${var.environment}"
+    DB_PASSWORD = module.autopilot.db_password
+  }
 }
