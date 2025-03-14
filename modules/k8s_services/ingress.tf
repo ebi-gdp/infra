@@ -1,3 +1,17 @@
+resource "kubernetes_manifest" "managed_cert" {
+  manifest = {
+    apiVersion = "networking.gke.io/v1"
+    kind       = "ManagedCertificate"
+    metadata = {
+      name      = "managed-cert"
+      namespace = local.default_namespace
+    }
+    spec = {
+      domains = [local.host]
+    }
+  }
+}
+
 resource "kubernetes_ingress_v1" "app_ingress" {
   metadata {
     name      = "app-ingress-front-back-end-config"
