@@ -43,7 +43,7 @@ locals {
     "basic-auth-sec-passwd-secret" = local.basic_auth
     "ega-aai-secret"               = local.ega_aai
     "email-secret"                 = local.email_secret
-    "globus-secret"                = local.globus_secret
+    "globus-auth-secret"           = local.globus_secret
     "s3-secret"                    = local.s3_secret
   }
 }
