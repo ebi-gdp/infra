@@ -45,6 +45,7 @@ module "autopilot" {
       }]
     }
   }
+  use_sql_proxy = true
 }
 
 module "k8s_services" {
