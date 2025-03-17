@@ -41,6 +41,7 @@ variable "basic_auth_secret" {
   type = object({
     BASIC_AUTH_USERNAME = string
     BASIC_AUTH_PASSWORD = string
+    SEC_KEY_PASSWORD    = string
   })
   sensitive = true
 }

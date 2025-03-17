@@ -12,3 +12,9 @@ data:
       format("%s:%s", basic_auth_secret.BASIC_AUTH_USERNAME, basic_auth_secret.BASIC_AUTH_PASSWORD)
     ))
   )}
+  FILE_HANDLER_BASIC_AUTH: ${base64encode(
+    format("Basic %s", base64encode(
+      format("%s:%s", basic_auth_secret.BASIC_AUTH_USERNAME, basic_auth_secret.BASIC_AUTH_PASSWORD)
+    ))
+  )}
+  SEC_KEY_PASSWD: ${base64encode(basic_auth_secret.SEC_KEY_PASSWORD)}
