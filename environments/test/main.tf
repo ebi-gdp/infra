@@ -62,5 +62,5 @@ module "k8s_services" {
   basic_auth_secret = var.basic_auth_secret
   email_secret      = var.email_secret
   globus_secret     = var.globus_secret
-  static_ip_name    = data.google_compute_global_address.calculation_service_lb_ip.id
+  static_ip_name    = data.google_compute_global_address.calculation_service_lb_ip.name
 }
