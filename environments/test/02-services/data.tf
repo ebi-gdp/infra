@@ -4,10 +4,6 @@
 - A data block means that terraform can read the IP address and pass it to other resources
 */
 
-data "google_compute_global_address" "static_site_lb_ip" {
-  name = "static-site-lb-ip"
-}
-
 data "google_compute_global_address" "calculation_service_lb_ip" {
   name = "calculation-service-static-ip"
 }

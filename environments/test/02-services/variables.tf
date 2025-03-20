@@ -1,3 +1,4 @@
+
 variable "project_id" {
   description = "The GCP Project ID"
   type        = string
@@ -13,12 +14,6 @@ variable "region" {
     error_message = "Infrastructure must be ddeployed to europe-west2 region"
   }
 }
-
-variable "alert_contacts" {
-  description = "Alert contacts (format: email = description)"
-  type        = map(string)
-}
-
 variable "environment" {
   description = "Deployment environment"
   type        = string
