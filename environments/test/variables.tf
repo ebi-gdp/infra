@@ -34,8 +34,9 @@ variable "oidc_service_accounts" {
   description = "service account in the GKE cluster to use GCP services"
   default = {
     "hattivatti" = {
-      namespace           = "intervene-test",
-      use_existing_k8s_sa = false,
+      namespace                       = "intervene-test",
+      use_existing_k8s_sa             = false,
+      automount_service_account_token = true,
     roles = ["roles/storage.admin"] },
     "nextflow" = {
       namespace           = "intervene-test",
@@ -58,9 +59,10 @@ variable "oidc_service_accounts" {
     }
   }
   type = map(object({
-    roles               = list(string)
-    namespace           = string
-    use_existing_k8s_sa = optional(bool, true)
+    roles                           = list(string)
+    namespace                       = string
+    use_existing_k8s_sa             = optional(bool, true)
+    automount_service_account_token = optional(bool, false)
   }))
 }
 

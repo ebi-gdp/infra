@@ -69,9 +69,10 @@ variable "globus_secret" {
 variable "oidc_service_accounts" {
   description = "service account in the GKE cluster to use GCP services"
   type = map(object({
-    roles               = list(string)
-    namespace           = string
-    use_existing_k8s_sa = optional(bool, false)
+    roles                           = list(string)
+    namespace                       = string
+    use_existing_k8s_sa             = optional(bool, false)
+    automount_service_account_token = optional(bool, false)
   }))
 }
 
