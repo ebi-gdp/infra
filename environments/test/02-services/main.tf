@@ -22,7 +22,7 @@ module "k8s_services" {
     DB_USERNAME = local.db_username
     DB_PASSWORD = data.google_secret_manager_secret_version.cloudsql.secret_data
   }
-  basic_auth_secret = var.basic_auth_secret
+  basic_auth_secret = local.basic_auth_secret
   email_secret      = var.email_secret
   globus_secret     = var.globus_secret
   static_ip_name    = data.google_compute_global_address.calculation_service_lb_ip.name
