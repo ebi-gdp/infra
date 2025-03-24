@@ -95,3 +95,14 @@ variable "alert_contact" {
   type        = string
   default     = "gdp-dev@ebi.ac.uk"
 }
+
+variable "calculation_uptime_targets" {
+  description = "Public uptime check targets (calculation service)"
+  type        = map(string)
+  default = {
+    "/bff/actuator/health"                  = "Calculation service: Backend for frontend"
+    "/bff/pipeline-manager/actuator/health" = "Calculation service: Pipeline manager"
+    "/bff/user-manager/actuator/health"     = "Calculation service: User manager"
+    "/bff/key-handler/actuator/health"      = "Calculation service: Key handler"
+  }
+}
