@@ -121,7 +121,7 @@ $ tofu apply
 
 Now follow the [deployment checklist](https://www.ebi.ac.uk/seqdb/confluence/display/GDP/Deployment+Steps), including:
 
-- [ ] Initialise the database
+- [ ] Initialise the database (try Cloud SQL studio to connect - there's no public IP)
 - [ ] Install the DPA in the database
 - [ ] Deploy redis
 - [ ] Deploy kafka
