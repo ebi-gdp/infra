@@ -31,14 +31,18 @@ Enabling object versioning, soft delete, and encryption is a good idea.
 
 ### Reserve IP addresses
 
-IP addresses aren't managed by the code here because updating DNS records is currently a manual process. Instead, the templates assume that the addresses have been created already:
+> [!TIP]
+> Ignore this section unless you destroyed or released the existing addresses in GCP
 
+* IP addresses aren't managed by the code here because updating DNS records is a manual process (you have to raise a SNOW request).
+* Instead, the templates assume that the addresses have been created already:
+ 
 ```
 $ gcloud compute addresses create static-site-lb-ip --project=${PROJECT_ID} --global
 $ gcloud compute addresses create calculation-service-static-ip --project=${PROJECT_ID} --global
 ```
 
-These IP addresses are defined in `data.tf` for each environment. This means that tofu won't modify them: it has read only access.
+* These IP addresses are defined in `data.tf` for each environment directory. This means that tofu won't modify them: it has read only access.
 
 ```mermaid
 flowchart TD
@@ -66,6 +70,7 @@ flowchart TD
     lb -- geneticscores.org/* --> landingbucket[Landing bucket]
     Ingress -- calculate.geneticscores.org/* --> calculateservice[Service]
 ```
+
 
 ## Environment overview
 
