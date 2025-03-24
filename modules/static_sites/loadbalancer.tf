@@ -1,10 +1,31 @@
 # see tf example here https://cloud.google.com/load-balancing/docs/https/setup-global-ext-https-buckets
 
-terraform {
-  required_version = ">= 1.0.0, < 2.0.0"
+// google managed certs config
+
+resource "google_compute_managed_ssl_certificate" "default" {
+  name = "GeneticScores.org certs"
+
+  managed {
+    domains = ["www.geneticscores.org", "geneticscores.org", "docs.geneticscores.org", "methods.geneticscores.org"]
+  }
 }
 
-resource "google_compute_url_map" "static_site_url_map" {
+resource "google_compute_ssl_policy" "modern_ssl" {
+  name            = "modern-ssl-policy"
+  min_tls_version = "TLS_1_2"
+  profile         = "MODERN"
+}
+
+// https load balancer set up
+
+resource "google_compute_target_https_proxy" "default" {
+  name             = "https-proxy"
+  url_map          = google_compute_url_map.default.id
+  ssl_certificates = [google_compute_managed_ssl_certificate.default.id]
+  ssl_policy       = google_compute_ssl_policy.modern_ssl.id
+}
+
+resource "google_compute_url_map" "default" {
   name        = "static-site-url-map"
   description = "URL map for the static sites with bucket backends"
 
@@ -32,16 +53,31 @@ resource "google_compute_url_map" "static_site_url_map" {
   }
 }
 
-resource "google_compute_target_http_proxy" "static-sites" {
-  name    = "http-lb-proxy"
-  url_map = google_compute_url_map.static_site_url_map.id
+resource "google_compute_global_forwarding_rule" "default" {
+  name       = "https-forwarding-rule"
+  target     = google_compute_target_https_proxy.default.id
+  port_range = 443
 }
 
-resource "google_compute_global_forwarding_rule" "default" {
-  name                  = "http-lb-forwarding-rule"
-  ip_protocol           = "TCP"
-  load_balancing_scheme = "EXTERNAL_MANAGED"
-  port_range            = "80"
-  target                = google_compute_target_http_proxy.static-sites.id
-  ip_address            = var.static_ip_id
+// automatic redirect HTTP -> HTTPS
+
+resource "google_compute_target_http_proxy" "http_proxy" {
+  name    = "http-proxy"
+  url_map = google_compute_url_map.default.id
+}
+
+resource "google_compute_global_forwarding_rule" "http_rule" {
+  name       = "http-forwarding-rule"
+  target     = google_compute_target_http_proxy.http_proxy.self_link
+  ip_address = google_compute_global_address.static_ip.address
+  port_range = "80"
+}
+
+resource "google_compute_url_map" "url_map" {
+  name = "static-url-map"
+
+  default_url_redirect {
+    https_redirect = true
+    strip_query    = false
+  }
 }

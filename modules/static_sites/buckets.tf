@@ -1,7 +1,7 @@
 resource "google_storage_bucket" "public_buckets" {
   for_each = var.static_buckets
 
-  name                        = "${each.value}-${var.environment}"
+  name                        = each.value
   location                    = var.region
   uniform_bucket_level_access = true
   storage_class               = "STANDARD"

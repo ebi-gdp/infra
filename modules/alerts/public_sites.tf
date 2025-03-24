@@ -1,9 +1,7 @@
 module "uptime-check-static-sites" {
-  source  = "terraform-google-modules/cloud-operations/google//modules/simple-uptime-check"
-  version = "0.6.0"
-
-  // don't create in dev / test environments
-  for_each = var.environment == "prod" ? var.uptime_targets : {}
+  source   = "terraform-google-modules/cloud-operations/google//modules/simple-uptime-check"
+  version  = "0.6.0"
+  for_each = var.uptime_targets
 
   uptime_check_display_name = each.value
   project_id                = var.project_id
@@ -23,9 +21,8 @@ module "uptime-check-static-sites" {
 
   accepted_response_status_classes = ["STATUS_CLASS_2XX"]
 
-  existing_notification_channels = values(google_monitoring_notification_channel.notification_channel)[*].id
+  existing_notification_channels = [var.notification_channel]
 
   # number of failures to trigger the alert
   condition_threshold_value = 3
 }
-
