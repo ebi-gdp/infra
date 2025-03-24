@@ -13,7 +13,21 @@ variable "static_buckets" {
   }
 }
 
-variable "static_ip_name" {
-  type        = string
+variable "static_ip" {
   description = "Name of static ip used for kubernetes ingress"
+  type = object({
+    address : string,
+    address_type : string,
+    id : string,
+    name : string,
+    network : string,
+    network_tier : string,
+    prefix_length : number,
+    project : string,
+    purpose : string,
+    self_link : string,
+    status : string,
+    subnetwork : string,
+    users : string,
+  })
 }

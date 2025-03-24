@@ -7,15 +7,13 @@ data "terraform_remote_state" "services" {
   }
 }
 
-/*
-module "static-sites" {
-  source       = "../../../modules/static_sites"
-  static_ip_name = data.google_compute_global_address.static_site_lb_ip.name
-}
-*/
-
 module "alerts" {
   source               = "../../../modules/alerts"
   project_id           = var.project_id
   notification_channel = data.terraform_remote_state.services.outputs.notification_channel
+}
+
+module "static-sites" {
+  source    = "../../../modules/static_sites"
+  static_ip = data.google_compute_global_address.static_site_lb_ip
 }
