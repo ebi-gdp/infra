@@ -63,13 +63,22 @@ variable "oidc_service_accounts" {
 }
 
 variable "basic_auth_secret" {
-  description = "Configuration for microservices using basic access authentication"
+  description = "Configuration for microservices using basic access authentication. Newlines are chomped from the end of strings to handle HEREDOCs."
   type = object({
     BASIC_AUTH_USERNAME = string
     BASIC_AUTH_PASSWORD = string
     SEC_KEY_PASSWORD    = string
   })
   sensitive = true
+
+  validation {
+    condition = alltrue([
+      length(regexall("[ \t]", var.basic_auth_secret.BASIC_AUTH_USERNAME)) == 0,
+      length(regexall("[ \t]", var.basic_auth_secret.BASIC_AUTH_PASSWORD)) == 0,
+      length(regexall("[ \t]", var.basic_auth_secret.SEC_KEY_PASSWORD)) == 0
+    ])
+    error_message = "Values for BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD, and SEC_KEY_PASSWORD must not contain spaces or tabs."
+  }
 }
 
 variable "email_secret" {
