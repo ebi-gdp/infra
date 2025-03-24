@@ -67,15 +67,30 @@ flowchart TD
     Ingress -- calculate.geneticscores.org/* --> calculateservice[Service]
 ```
 
-## Pick an environment
+## Environment overview
+
+* dev and test create infrastructure for a calculation service instance
+* prod creates extra infrastructure to deploy static sites with extra uptime/alerting
+
+ 
+| Environment | tf script   | Description                                                                    |
+|-------------|-------------|--------------------------------------------------------------------------------|
+| dev         | 01-gke      | Autopilot cluster, CloudSQL database, VPC                                      |
+| dev         | 02-services | Kubernetes resources, IAM, ingress, managed SSL certs (calculation service)    |
+| test        | 01-gke      | Autopilot cluster, CloudSQL database, VPC                                      |
+| test        | 02-services | Kubernetes resources, IAM, ingress, managed SSL certs (calculation service)    |
+| prod        | 01-gke      | Autopilot cluster, CloudSQL database, VPC                                      |
+| prod        | 02-services | Kubernetes resources, workload identity federation, ingress                    |
+| prod        | 03-sites    | Load balancer, backend bucket, managed SSL certs (static sites), uptime checks |
+
+## Deploying a development environment
+
+> “Begin at the beginning," the King said, very gravely, "and go on till you come to the end: then stop.”
+ 
+Each environment has up to 3 scripts. Begin at the beginning (01-gke):
 
 ```
-$ cd environments/test
-```
-
-## Plan a deployment
-
-```
+$ cd environments/dev/01-gke
 $ tofu plan
 ```
 
@@ -88,26 +103,26 @@ $ tofu plan
 
 If everything looks sensible, create the resources by applying the deployment.
 
-## Execute a deployment
-
 ```
 $ tofu apply
 ```
 
-## Next steps
+Then create the associated services:
 
-The [dev](environments/dev) and [test](environments/test) deployments include a CloudSQL database and Kubernetes cluster with associated infrastructure. 
+```
+$ cd environments/dev/02-services
+$ tofu apply
+```
 
-The [production](environments/prod) deployment also includes monitoring, alerting, and static site set up. 
+Now follow the [deployment checklist](https://www.ebi.ac.uk/seqdb/confluence/display/GDP/Deployment+Steps), including:
 
-The created cluster is automatically configured to support deploying `GeneticScores.org` services (see [`k8s_services`](modules/k8s_services) module).
-
-You'll still need to:
-
-- [ ] Initialise the database tables
-- [ ] Register the cluster with Gitlab to support CI/CD operations
-- [ ] Deploy other services including the job submitter and cron jobs
-- [ ] Anything else?
-
-> [!TIP]
-> Add a link to documentation here
+- [ ] Initialise the database
+- [ ] Install the DPA in the database
+- [ ] Deploy redis
+- [ ] Deploy kafka
+- [ ] Register the K8S cluster on GitLab and install the runner 
+- [ ] Deploy bff gateway
+- [ ] Deploy microservices
+- [ ] Deploy cronjobs
+- [ ] Deploy job submitter
+- [ ] Run a test job with HAPNEST
