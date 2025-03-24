@@ -89,3 +89,9 @@ variable "gitlab_project_ids" {
     platform                     = "4654"
   }
 }
+
+variable "alert_contact" {
+  description = "Alert contact"
+  type        = string
+  default     = "gdp-dev@ebi.ac.uk"
+}

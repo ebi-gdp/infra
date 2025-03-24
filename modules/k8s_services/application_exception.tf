@@ -24,5 +24,5 @@ resource "google_monitoring_alert_policy" "server_exception_alert" {
 
   severity = "CRITICAL"
 
-  notification_channels = [for channel in google_monitoring_notification_channel.notification_channel : channel.id]
+  notification_channels = [google_monitoring_notification_channel.default.id]
 }
