@@ -17,9 +17,7 @@
 |------|--------|---------|
 | <a name="module_cloud-nat"></a> [cloud-nat](#module\_cloud-nat) | terraform-google-modules/cloud-nat/google | 5.3 |
 | <a name="module_databases"></a> [databases](#module\_databases) | terraform-google-modules/sql-db/google//modules/postgresql | 25.2 |
-| <a name="module_db_users_password"></a> [db\_users\_password](#module\_db\_users\_password) | GoogleCloudPlatform/secret-manager/google | 0.7 |
 | <a name="module_gke_autopilot"></a> [gke\_autopilot](#module\_gke\_autopilot) | terraform-google-modules/kubernetes-engine/google//modules/beta-autopilot-private-cluster | 36.0.0 |
-| <a name="module_my-app-workload-identity"></a> [my-app-workload-identity](#module\_my-app-workload-identity) | terraform-google-modules/kubernetes-engine/google//modules/workload-identity | 36.0.0 |
 | <a name="module_network_subnets"></a> [network\_subnets](#module\_network\_subnets) | terraform-google-modules/network/google//modules/subnets | 10.0.0 |
 | <a name="module_network_vpc"></a> [network\_vpc](#module\_network\_vpc) | terraform-google-modules/network/google//modules/vpc | 10.0.0 |
 | <a name="module_psc_connections"></a> [psc\_connections](#module\_psc\_connections) | gitlab.ebi.ac.uk/wap-public/google-service-private-connect-sql/gcp | 0.0.2 |
@@ -30,6 +28,8 @@
 |------|------|
 | [google_compute_router.main_router](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router) | resource |
 | [google_project_service.enable_secrets_manager](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
+| [google_secret_manager_secret.secrets](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret) | resource |
+| [google_secret_manager_secret_version.secrets](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret_version) | resource |
 
 ## Inputs
 
@@ -43,7 +43,6 @@
 | <a name="input_grant_registry_access"></a> [grant\_registry\_access](#input\_grant\_registry\_access) | n/a | `bool` | `false` | no |
 | <a name="input_horizontal_pod_autoscaling"></a> [horizontal\_pod\_autoscaling](#input\_horizontal\_pod\_autoscaling) | n/a | `bool` | `true` | no |
 | <a name="input_master_ipv4_cidr_block"></a> [master\_ipv4\_cidr\_block](#input\_master\_ipv4\_cidr\_block) | n/a | `string` | `"10.0.0.0/28"` | no |
-| <a name="input_oidc_service_accounts"></a> [oidc\_service\_accounts](#input\_oidc\_service\_accounts) | service account in the GKE cluster to use GCP services | <pre>map(object({<br/>    roles               = list(string)<br/>    namespace           = string<br/>    use_existing_k8s_sa = optional(bool, true)<br/>    annotate_k8s_sa     = optional(bool, false)<br/>  }))</pre> | `{}` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The GCP project to deploy the infrastructure | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | `"europe-west2"` | no |
 | <a name="input_secondary_ranges"></a> [secondary\_ranges](#input\_secondary\_ranges) | GKE secondary ranges | <pre>map(list(object({<br/>    range_name    = string<br/>    ip_cidr_range = string<br/>  })))</pre> | n/a | yes |
@@ -54,4 +53,6 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_ca_certificate"></a> [ca\_certificate](#output\_ca\_certificate) | GKE autopilot CA certificate |
+| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | GKE autopilot cluster endpoint |
 | <a name="output_network_id"></a> [network\_id](#output\_network\_id) | The ID of the created VPC network. |

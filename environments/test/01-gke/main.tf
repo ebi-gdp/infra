@@ -1,21 +1,3 @@
-
-/*
-module "static-sites" {
-  source       = "../../../modules/static_sites"
-  environment  = var.environment
-  static_ip_id = data.google_compute_global_address.static_site_lb_ip.id
-}
-*/
-
-/*
-module "alerts" {
-  source         = "../../../modules/alerts"
-  project_id     = var.project_id
-  alert_contacts = var.alert_contacts
-  environment    = "test"
-}
-*/
-
 // https://cloud.google.com/kubernetes-engine/docs/concepts/alias-ips#cluster_sizing_secondary_range_pods
 // maximum cluster size: 64 autopilot pods
 module "autopilot" {
