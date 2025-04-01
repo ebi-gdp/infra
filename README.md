@@ -126,8 +126,10 @@ If you destroy and then apply the terraform plan on the same GCP project you wil
 This happens because the workload identity pool and pool provider are only soft deleted by GCP after `tofu destroy`. You have to undelete them on the GCP console and manually import them into terraform state. 
 
 ```
+$ tofu destroy -var-file="testing.tfvars" # you've deleted everything in 02-services for some reason, go and undelete the identity pool and provider
 $ tofu import -var-file="testing.tfvars" module.k8s_services.google_iam_workload_identity_pool.gitlab projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<POOL_NAME>
 $ tofu import -var-file="testing.tfvars" module.k8s_services.google_iam_workload_identity_pool_provider.gitlab-provider projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<POOL_NAME>/providers/<PROVIDER_NAME>
+$ tofu apply -var-file="testing.tfvars" # should be OK now
 ```
 
 ## Next steps
