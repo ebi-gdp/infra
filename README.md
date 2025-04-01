@@ -119,18 +119,25 @@ $ cd environments/dev/02-services
 $ tofu apply
 ```
 
-### Tip: Manual imports before recreation
+### Deleting an environment
 
-If you destroy and then apply the terraform plan on the same GCP project you will experience an error that some resources already exist when recreating the services.
+* You can delete all the created resources by using `tofu destroy`
+* On the production environment the database and Kubernetes cluster have deletion prevention enabled, so you'll get an error message until you manually change it in the GCP console
+* Some resources like reserved IP addresses are not managed by terraform and won't be deleted 
 
-This happens because the workload identity pool and pool provider are only soft deleted by GCP after `tofu destroy`. You have to undelete them on the GCP console and manually import them into terraform state. 
-
-```
-$ tofu destroy -var-file="testing.tfvars" # you've deleted everything in 02-services for some reason, go and undelete the identity pool and provider
-$ tofu import -var-file="testing.tfvars" module.k8s_services.google_iam_workload_identity_pool.gitlab projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<POOL_NAME>
-$ tofu import -var-file="testing.tfvars" module.k8s_services.google_iam_workload_identity_pool_provider.gitlab-provider projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<POOL_NAME>/providers/<PROVIDER_NAME>
-$ tofu apply -var-file="testing.tfvars" # should be OK now
-```
+> [!TIP]
+> If you destroy and then apply the terraform plan on the same GCP project you will experience an error that some resources already exist when recreating the services.
+> 
+> This happens because the workload identity pool and pool provider are only soft deleted by GCP. It takes 30 days for these resources to be hard deleted.
+>
+> You have to undelete the pool and provider on the GCP console and manually import them into terraform state. 
+> 
+> ```
+> $ tofu destroy -var-file="testing.tfvars" # you've deleted everything in 02-services for some reason, now go and undelete the identity pool and provider in the GCP console
+> $ tofu import -var-file="testing.tfvars" module.k8s_services.google_iam_workload_identity_pool.gitlab projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<POOL_NAME>
+> $ tofu import -var-file="testing.tfvars" module.k8s_services.google_iam_workload_identity_pool_provider.gitlab-provider projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<POOL_NAME>/providers/<PROVIDER_NAME>
+> $ tofu apply -var-file="testing.tfvars" # should be OK now
+> ```
 
 ## Next steps
 
