@@ -119,6 +119,19 @@ $ cd environments/dev/02-services
 $ tofu apply
 ```
 
+### Tip: Manual imports before recreation
+
+If you destroy and then apply the terraform plan on the same GCP project you will experience an error that some resources already exist when recreating the services.
+
+This happens because the workload identity pool and pool provider are only soft deleted by GCP after `tofu destroy`. You have to undelete them on the GCP console and manually import them into terraform state. 
+
+```
+$ tofu import -var-file="testing.tfvars" module.k8s_services.google_iam_workload_identity_pool.gitlab projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<POOL_NAME>
+$ tofu import -var-file="testing.tfvars" module.k8s_services.google_iam_workload_identity_pool_provider.gitlab-provider projects/<PROJECT_ID>/locations/global/workloadIdentityPools/<POOL_NAME>/providers/<PROVIDER_NAME>
+```
+
+## Next steps
+
 Now follow the [deployment checklist](https://www.ebi.ac.uk/seqdb/confluence/display/GDP/Deployment+Steps), including:
 
 - [ ] Initialise the database (try Cloud SQL studio to connect - there's no public IP)
