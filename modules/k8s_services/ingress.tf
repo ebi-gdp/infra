@@ -12,6 +12,26 @@ resource "kubernetes_manifest" "managed_cert" {
   }
 }
 
+resource "google_compute_ssl_policy" "default" {
+  name            = "gke-ingress-ssl-policy"
+  profile         = "MODERN"
+  min_tls_version = "TLS_1_2"
+}
+
+resource "kubernetes_manifest" "frontend_config" {
+  manifest = {
+    apiVersion = "networking.gke.io/v1beta1"
+    kind       = "FrontendConfig"
+    metadata = {
+      name      = "my-frontend-config"
+      namespace = local.default_namespace
+    }
+    spec = {
+      sslPolicy = google_compute_ssl_policy.default.name
+    }
+  }
+}
+
 resource "kubernetes_ingress_v1" "app_ingress" {
   metadata {
     name      = "app-ingress-front-back-end-config"
@@ -20,15 +40,7 @@ resource "kubernetes_ingress_v1" "app_ingress" {
     annotations = {
       "kubernetes.io/ingress.global-static-ip-name"    = var.static_ip_name
       "networking.gke.io/managed-certificates"         = "managed-cert"
-      "nginx.ingress.kubernetes.io/ssl-protocols"      = "TLSv1.2 TLSv1.3"
-      "nginx.ingress.kubernetes.io/use-regex"          = "true"
-      "nginx.ingress.kubernetes.io/force-ssl-redirect" = "true"
-      "nginx.ingress.kubernetes.io/ssl-redirect"       = "true"
-      "kubernetes.io/ingress.class"                    = "gce"
-      "nginx.ingress.kubernetes.io/server-snippet"     = <<-EOT
-        rewrite ^/(.*)/$ /$1 permanent;
-        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-      EOT
+      "networking.gke.io/v1beta1.FrontendConfig"       = "my-frontend-config"
     }
   }
 
