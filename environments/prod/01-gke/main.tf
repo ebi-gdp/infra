@@ -1,5 +1,4 @@
 // https://cloud.google.com/kubernetes-engine/docs/concepts/alias-ips#cluster_sizing_secondary_range_pods
-// maximum cluster size: 64 autopilot pods
 module "autopilot" {
   source      = "../../../modules/k8s/"
   project_id  = var.project_id
@@ -7,16 +6,16 @@ module "autopilot" {
   secondary_ranges = {
     prod-main-subnet = [{
       range_name    = "${var.environment}-gke-pods-subnet",
-      ip_cidr_range = "10.10.2.0/23"
+      ip_cidr_range = "10.11.0.0/16"
       },
       {
         range_name    = "${var.environment}-gke-svcs-subnet",
-        ip_cidr_range = "10.10.4.0/24"
+        ip_cidr_range = "10.12.0.0/20"
     }]
   }
   subnets = [{
     subnet_name           = "${var.environment}-main-subnet",
-    subnet_ip             = "10.10.0.0/23",
+    subnet_ip             = "10.10.0.0/16",
     subnet_region         = "europe-west2",
     subnet_private_access = "true",
     description           = "Main subnet"
