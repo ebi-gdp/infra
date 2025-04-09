@@ -152,5 +152,6 @@ Now follow the [deployment checklist](https://www.ebi.ac.uk/seqdb/confluence/dis
 - [ ] Deploy bff gateway
 - [ ] Deploy microservices
 - [ ] Deploy cronjobs
+- [ ] Run test cron job to load data from the PGS Catalog API
 - [ ] Deploy job submitter
 - [ ] Run a test job with HAPNEST
