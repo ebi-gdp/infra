@@ -5,5 +5,5 @@
 */
 
 data "google_compute_global_address" "calculation_service_lb_ip" {
-  name = "calculation-service-static-ip"
+  name = "intervene-dev-static-ip"
 }
