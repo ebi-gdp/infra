@@ -147,6 +147,7 @@ Now follow the [deployment checklist](https://www.ebi.ac.uk/seqdb/confluence/dis
 - [ ] Install the DPA in the database
 - [ ] Deploy redis
 - [ ] Deploy kafka
+- [ ] Set up image pull secret for GitLab private container registries
 - [ ] Register the K8S cluster on GitLab and install the runner 
 - [ ] Deploy bff gateway
 - [ ] Deploy microservices
