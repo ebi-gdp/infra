@@ -21,3 +21,8 @@ variable "notification_channel" {
   description = "Notification channel ID"
   type        = string
 }
+
+variable "logging_metrics" {
+  description = "Logging metric filter, the key will be used to name the metric. If the metric count is greater that 0 the alert is triggered"
+  default = {}
+}
