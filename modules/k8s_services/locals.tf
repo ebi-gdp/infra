@@ -1,6 +1,10 @@
 locals {
   jobsubmitter_bucket = "geneticscores-${var.environment}-hattivatti"
-  namespaces          = toset(["intervene-${var.environment}", "kafka-${var.environment}"])
+  namespaces          = toset([
+    "intervene-${var.environment}", 
+    "kafka-${var.environment}"
+  ])
+  
   default_namespace   = "intervene-${var.environment}"
 
   host_environments = {
