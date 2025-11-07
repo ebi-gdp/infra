@@ -26,9 +26,4 @@ module "k8s_services" {
   email_secret      = var.email_secret
   globus_secret     = var.globus_secret
   static_ip_name    = data.google_compute_global_address.calculation_service_lb_ip.name
-  gitlab_runner_config = {
-    gitlab_url = "https://gitlab.ebi.ac.uk/"
-    
-  }
-  gitlab_runner_token = var.gitlab_runner_token
 }
