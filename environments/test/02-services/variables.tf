@@ -97,3 +97,10 @@ variable "globus_secret" {
   })
   sensitive = true
 }
+
+variable "gitlab_runner_token" {
+  description = "Gitlab Runner token"
+  type = string
+  sensitive = true
+  default = ""
+}

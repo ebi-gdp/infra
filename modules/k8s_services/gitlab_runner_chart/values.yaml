@@ -1,0 +1,30 @@
+gitlabUrl : ${ gitlab_url}
+rbac:
+  create : true
+runnerToken : ${ token }
+concurrent : ${ concurrency }
+resources:
+  limits:
+  # The pod listening to the changes on the gitlab server
+  # this is not the job pod config
+    memory : ${ controller_limits.memory }
+    cpu : ${ controller_limits.cpu }
+    ephemeral-storage : ${ controller_limits.ephemeral-storage }
+runners:
+  config: |
+    [[runners]]
+      [runners.kubernetes]
+        namespace = "{{ default .Release.Namespace .Values.runners.jobNamespace }}"
+        image = "alpine"
+        # Jobs 
+        cpu_limit = "${ job_limits.cpu }"
+        memory_limit = "${ job_limits.memory }"
+        ephemeral_storage_limit = "${ job_limits.ephemeral-storage }"
+        # Helpers
+        helper_cpu_limit = "${ helper_limits.cpu }"
+        helper_memory_limit = "${ helper_limits.memory }"
+        helper_ephemeral_storage_limit = "${ helper_limits.ephemeral-storage }"
+        # Services Like DinD
+        service_cpu_limit = "${ service_limits.cpu }"
+        service_memory_limit = "${ service_limits.memory }"
+        service_ephemeral_storage_limit = "${ service_limits.ephemeral-storage }"

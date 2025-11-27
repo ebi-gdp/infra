@@ -106,3 +106,70 @@ variable "calculation_uptime_targets" {
     "/bff/key-handler/actuator/health"      = "Calculation service: Key handler"
   }
 }
+
+variable "gitlab_runner_token" {
+  description = "Gitlab Runner token"
+  default = ""
+  type = string
+  sensitive = true
+}
+
+variable "gitlab_runner_config" {
+  description = "The config to be applied to the gitlab runner"
+  default = {
+    concurrency = "10"
+    gitlab_url = "https://gitlab.ebi.ac.uk/"
+  }
+  type = object({
+    concurrency = optional(string, "10")
+    gitlab_url = optional(string, "https://gitlab.ebi.ac.uk/")
+    helper_limits = optional(object({
+      cpu    = string
+      memory = string
+      ephemeral-storage = string
+    }),
+    {
+      cpu    = "500m"
+      memory = "512Mi"
+      ephemeral-storage = "4Gi"
+    })
+
+    job_limits = optional(object({
+      cpu    = string
+      memory = string
+      ephemeral-storage = string
+    }),
+    {
+      cpu    = "500m"
+      memory = "512Mi"
+      ephemeral-storage = "4Gi"
+    })
+    
+    service_limits = optional(object({
+      cpu    = string
+      memory = string
+      ephemeral-storage = string
+    }),{
+      cpu    = "500m"
+      memory = "512Mi"
+      ephemeral-storage = "4Gi"
+    })
+
+    controller_limits = optional(object({
+      cpu    = string
+      memory = string
+      ephemeral-storage = string
+    }),
+    {
+      cpu    = "500m"
+      memory = "512Mi"
+      ephemeral-storage = "4Gi"
+    })
+  })
+}
+
+variable "gitlab_runner_chart_version" {
+  description = "the version of the chart https://artifacthub.io/packages/helm/gitlab/gitlab-runner"
+  type = string
+  default = "0.82.0"
+}

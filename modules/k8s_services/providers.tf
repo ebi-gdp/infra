@@ -7,3 +7,11 @@ provider "kubernetes" {
   token                  = data.google_client_config.default.access_token
   cluster_ca_certificate = base64decode(var.autopilot_ca_certificate)
 }
+
+provider "helm" {
+  kubernetes = {
+    host                   = "https://${var.autopilot_endpoint}"
+    token                  = data.google_client_config.default.access_token
+    cluster_ca_certificate = base64decode(var.autopilot_ca_certificate)
+  }
+}
