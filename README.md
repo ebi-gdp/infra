@@ -74,28 +74,26 @@ flowchart TD
 
 ## Environment overview
 
-* dev and test create infrastructure for a calculation service instance
+* test creates infrastructure for a calculation service instance
 * prod creates extra infrastructure to deploy static sites with extra uptime/alerting
 
  
 | Environment | tf script   | Description                                                                    |
 |-------------|-------------|--------------------------------------------------------------------------------|
-| dev         | 01-gke      | Autopilot cluster, CloudSQL database, VPC                                      |
-| dev         | 02-services | Kubernetes resources, IAM, ingress, managed SSL certs (calculation service)    |
 | test        | 01-gke      | Autopilot cluster, CloudSQL database, VPC                                      |
 | test        | 02-services | Kubernetes resources, IAM, ingress, managed SSL certs (calculation service)    |
 | prod        | 01-gke      | Autopilot cluster, CloudSQL database, VPC                                      |
 | prod        | 02-services | Kubernetes resources, workload identity federation, ingress                    |
 | prod        | 03-sites    | Load balancer, backend bucket, managed SSL certs (static sites), uptime checks |
 
-## Deploying a development environment
+## Deploying a test environment
 
 > “Begin at the beginning," the King said, very gravely, "and go on till you come to the end: then stop.”
  
 Each environment has up to 3 scripts. Begin at the beginning (01-gke):
 
 ```
-$ cd environments/dev/01-gke
+$ cd environments/test/01-gke
 $ tofu plan
 ```
 
@@ -115,7 +113,7 @@ $ tofu apply
 Then create the associated services:
 
 ```
-$ cd environments/dev/02-services
+$ cd environments/test/02-services
 $ tofu apply
 ```
 
